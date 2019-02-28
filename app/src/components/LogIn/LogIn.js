@@ -13,9 +13,22 @@ export default class LogIn extends Component {
     const { name, value } = e.target;
     this.setState({ [name]: value })
   }
+  submit = e => {
+    e.preventDefault();
+    const url = 'https://postgress-users-tutorial.herokuapp.com/api/login';
+
+    axios
+      .post(url, this.state)
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+        
+        this.props.history.push('/users')
+      })
+      .catch(error => console.log(error));
+  }
   render() {
     return (
-      <form>
+      <form onSubmit={this.submit}>
         <div>
           <input
             type="text"
