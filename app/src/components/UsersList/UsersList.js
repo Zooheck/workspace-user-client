@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import User from '../User/User';
 
-export default class UsersList extends Component {
+import Authentication from '../Authentication/Authentication.js';
+
+class UsersList extends Component {
   state = {
     users: []
   }
   componentDidMount() {
     axios.get('/users').then(res => {
-      this.setState({ users: res.data.users })
+      console.log(res.data)
+      this.setState({ users: res.data })
     })
   }
   render() {
@@ -16,9 +19,11 @@ export default class UsersList extends Component {
       <div>
         <h1>Users: </h1>
         {this.state.users.map(user => {
-          return <User user={user}/>
+          return <User key={user.id} user={user}/>
         })}
       </div>
     )
   }
 }
+
+export default Authentication(UsersList);
