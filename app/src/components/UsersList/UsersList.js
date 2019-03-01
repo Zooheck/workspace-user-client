@@ -10,7 +10,6 @@ class UsersList extends Component {
   }
   componentDidMount() {
     axios.get('/users').then(res => {
-      console.log(res.data)
       this.setState({ users: res.data })
     })
   }
